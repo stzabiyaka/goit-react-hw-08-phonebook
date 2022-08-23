@@ -5,19 +5,17 @@ import { List } from './ContactList.styled';
 export function ContactList({ contacts, removeItem }) {
   return (
     <List>
-      {contacts
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map(({ id, name, number }) => {
-          return (
-            <ContactListItem
-              key={id}
-              id={id}
-              name={name}
-              number={number}
-              onDelete={removeItem}
-            ></ContactListItem>
-          );
-        })}
+      {contacts.map(({ id, name, number }) => {
+        return (
+          <ContactListItem
+            key={id}
+            id={id}
+            name={name}
+            number={number}
+            onDelete={removeItem}
+          ></ContactListItem>
+        );
+      })}
     </List>
   );
 }

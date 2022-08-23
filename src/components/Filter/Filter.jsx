@@ -10,7 +10,7 @@ export function Filter({ value, onFilter }) {
         type="search"
         value={value}
         title="Enter a name or a family name of the contact to filter data. Filter is case insensitive."
-        onChange={onFilter}
+        onChange={event => onFilter(event.currentTarget.value)}
         required={false}
         pattern=""
       />
