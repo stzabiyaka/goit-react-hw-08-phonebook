@@ -4,7 +4,7 @@ import { Input } from 'components/Input';
 import { FilterContainer } from './Filter.styled';
 
 export function Filter() {
-  const filterValue = useSelector(getFilterValue) ?? '';
+  const filterValue = useSelector(getFilterValue);
   const dispatch = useDispatch();
   const handleChange = event => {
     const { value } = event.target;
