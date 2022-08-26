@@ -1,7 +1,15 @@
 import styled from '@emotion/styled';
 
 export const Button = styled.button`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 52px;
+  padding: 2px;
   background-color: transparent;
+  font-size: 16px;
+  line-height: 1;
+
   border-radius: ${({ theme }) => theme.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.borderMiddleColor};
 
@@ -13,5 +21,9 @@ export const Button = styled.button`
     background-color: ${({ theme }) => theme.colors.accentColor};
     border-color: transparent;
     box-shadow: 0 0 10px ${({ theme }) => theme.colors.accentColor};
+  }
+
+  &:disabled {
+    opacity: 0.5;
   }
 `;
