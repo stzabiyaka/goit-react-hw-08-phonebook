@@ -9,7 +9,7 @@ import { Filter } from 'components/Filter';
 export const App = () => {
   return (
     <Application>
-      <PageTitle title="React homework #07 - phonebook" />
+      <PageTitle title="React homework #08 - phonebook" />
 
       <Section title="Phonebook">
         <AddContactForm />
