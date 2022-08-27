@@ -6,7 +6,7 @@ import { ContactListItem } from 'components/ContactListItem';
 import { List } from './ContactList.styled';
 
 export function ContactList() {
-  const { data = [], error, isError, isFetching } = useGetContactsQuery();
+  const { data = [], error, isError, isLoading } = useGetContactsQuery();
 
   const filterValue = useSelector(getFilterValue);
 
@@ -24,7 +24,7 @@ export function ContactList() {
 
   return (
     <>
-      {isFetching && <Circles color="#8d8d8d" width="100" height="100" />}
+      {isLoading && <Circles color="#8d8d8d" width="100" height="100" />}
       {data && !isError && (
         <List>
           {getFilteredContacts().map(({ id }) => {
