@@ -1,4 +1,13 @@
 import { nanoid } from 'nanoid';
+import { useSignInUserMutation } from 'redux/user/authSlice';
+import { useDispatch } from 'react-redux';
+import {
+  setUserToken,
+  setIsLogged,
+  setUserName,
+  setUserEmail,
+} from 'redux/user';
+import { Circles } from 'react-loader-spinner';
 import { Button } from 'utilities';
 import { useState } from 'react';
 import { Main } from 'utilities';
@@ -8,8 +17,8 @@ import { FormContainer } from 'components/AddContactForm';
 const LoginView = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [createContact, { isLoading: isAdding }] = useCreateContactMutation();
-  // const { data } = useGetContactsQuery();
+  const [signInUser, { isLoading: isLoggingIn }] = useSignInUserMutation();
+  const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -35,7 +44,14 @@ const LoginView = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log({ email, password });
+    signInUser({ email, password })
+      .then(({ data }) => {
+        dispatch(setUserToken(data.token));
+        dispatch(setIsLogged(true));
+        dispatch(setUserName(data.user.name));
+        dispatch(setUserEmail(data.user.email));
+      })
+      .catch(console.log);
     reset();
   };
 
@@ -56,18 +72,18 @@ const LoginView = () => {
           type="password"
           name="password"
           id={nanoid()}
-          pattern="[a-z0-9._%+-]{2,8}"
-          title="Password may contain letters in lowercase, numbers and it's lenghth should be from 2 to 8 symbols"
+          pattern="[a-z0-9._%+-]{7,12}"
+          title="Password may contain letters in lowercase, numbers and it's lenghth should be from 7 to 12 symbols"
           value={password}
           required={true}
           onChange={handleChange}
         />
         <Button type="submit">
-          {/* {isAdding ? (
-            <Circles color="#8d8d8d" width="16" height="16" />
-          ) : ( */}
-          'LogIn'
-          {/* )} */}
+          {isLoggingIn ? (
+            <Circles color="blue" width="16" height="16" />
+          ) : (
+            'LogIn'
+          )}
         </Button>
       </FormContainer>
     </Main>
