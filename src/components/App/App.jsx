@@ -1,26 +1,24 @@
+import { Routes, Route } from 'react-router-dom';
 import { Application } from './App.styled';
-import { PageTitle } from 'components/PageTitle';
-import { Footer } from 'components/Footer/Footer';
-import { Section } from 'components/Section';
-import { AddContactForm } from 'components/AddContactForm';
-import { ContactList } from 'components/ContactList';
-import { Filter } from 'components/Filter';
+import SharedLayout from 'components/SharedLayout';
+import HomeViev from 'views/HomeViev';
+import ContactsView from 'views/ContactsView';
+import LoginViev from 'views/LoginViev';
+import RegisterView from 'views/RegisterView';
 
-export const App = () => {
+const App = () => {
   return (
     <Application>
-      <PageTitle title="React homework #08 - phonebook" />
-
-      <Section title="Phonebook">
-        <AddContactForm />
-      </Section>
-
-      <Section title="Contacts">
-        <Filter />
-        <ContactList />
-      </Section>
-
-      <Footer name="Stanislav Zabiyaka" href="https://github.com/stzabiyaka/" />
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomeViev />} />
+          <Route path="contacts" element={<ContactsView />} />
+          <Route path="login" element={<LoginViev />} />
+          <Route path="register" element={<RegisterView />} />
+        </Route>
+      </Routes>
     </Application>
   );
 };
+
+export default App;

@@ -6,6 +6,7 @@ export const PageFooter = styled.footer`
   width: 100%;
   padding: 20px 0;
   background-color: ${({ theme }) => theme.colors.backgroundLightColor};
+  box-shadow: ${({ theme }) => theme.shadow};
 `;
 
 export const Copyright = styled.p`

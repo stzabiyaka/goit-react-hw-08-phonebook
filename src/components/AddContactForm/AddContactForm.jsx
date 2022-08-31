@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useCreateContactMutation, useGetContactsQuery } from 'redux/contacts';
 import { Circles } from 'react-loader-spinner';
 import { nanoid } from 'nanoid';
-import { Input } from '../Input/Input';
+import { Input } from 'components/Input';
 import { FormContainer } from './AddContactForm.styled';
 import { Button } from 'utilities';
 

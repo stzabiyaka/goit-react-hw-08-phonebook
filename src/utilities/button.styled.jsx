@@ -5,10 +5,11 @@ export const Button = styled.button`
   justify-content: center;
   align-items: center;
   min-width: 52px;
-  padding: 2px;
+  padding: 4px;
   background-color: transparent;
   font-size: 16px;
   line-height: 1;
+  color: inherit;
 
   border-radius: ${({ theme }) => theme.borderRadius};
   border: 1px solid ${({ theme }) => theme.colors.borderMiddleColor};

@@ -6,8 +6,10 @@ export const theme = Object.freeze({
     backgroundLightColor: '#ffffff',
     backgroundMiddleColor: 'rgb(230, 230, 230)',
     borderMiddleColor: 'rgb(187, 187, 187)',
-    accentColor: '#2231fa',
+    accentColor: 'orange',
+    barColor: 'blue',
   },
   shadow: '0 5px 10px #808080',
   borderRadius: '5px',
+  indent: '12px',
 });
