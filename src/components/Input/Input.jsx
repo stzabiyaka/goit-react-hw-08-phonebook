@@ -9,6 +9,7 @@ export function Input({
   pattern,
   title,
   required,
+  placeholder,
   onChange,
 }) {
   const id = nanoid();
@@ -23,6 +24,7 @@ export function Input({
         pattern={pattern}
         title={title}
         required={required}
+        placeholder={placeholder}
         onChange={onChange}
       />
     </>
@@ -36,5 +38,6 @@ Input.propTypes = {
   pattern: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
+  placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
 };

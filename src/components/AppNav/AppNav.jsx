@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { AppNavContainer } from './AppNav.styled';
 import { AppLink } from 'utilities';
-import { getisLogged } from 'redux/user';
+import { getUserToken } from 'redux/userState';
 
 const AppNav = () => {
-  const isLogged = useSelector(getisLogged);
+  const isLogged = useSelector(getUserToken);
   return (
     <AppNavContainer>
       <AppLink to="/">Home</AppLink>

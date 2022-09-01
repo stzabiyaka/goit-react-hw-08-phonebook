@@ -3,10 +3,10 @@ import AppNav from 'components/AppNav';
 import AuthNav from 'components/AuthNav';
 import UserMenu from 'components/UserMenu';
 import { AppBarContainer } from './AppBar.styled';
-import { getisLogged } from 'redux/user';
+import { getUserToken } from 'redux/userState';
 
 export function AppBar() {
-  const isLogged = useSelector(getisLogged);
+  const isLogged = useSelector(getUserToken);
   return (
     <AppBarContainer>
       <AppNav />

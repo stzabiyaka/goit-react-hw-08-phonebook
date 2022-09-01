@@ -8,7 +8,7 @@ import { Button } from 'utilities';
 
 export const AddContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
   const [createContact, { isLoading: isAdding }] = useCreateContactMutation();
   const { data } = useGetContactsQuery();
 
@@ -20,8 +20,8 @@ export const AddContactForm = () => {
         setName(value);
         break;
 
-      case 'phone':
-        setPhone(value);
+      case 'number':
+        setNumber(value);
         break;
 
       default:
@@ -31,13 +31,13 @@ export const AddContactForm = () => {
 
   const reset = () => {
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   const handleSubmit = event => {
     event.preventDefault();
     if (isContactExist(name)) {
-      createContact({ name, phone });
+      createContact({ name, number });
       reset();
     }
   };
@@ -62,16 +62,18 @@ export const AddContactForm = () => {
         title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
         value={name}
         required={true}
+        placeholder="Enter name"
         onChange={handleChange}
       />
       <Input
         type="tel"
-        name="phone"
+        name="number"
         id={nanoid()}
         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
         title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-        value={phone}
+        value={number}
         required={true}
+        placeholder="Enter phone number"
         onChange={handleChange}
       />
       <Button type="submit">

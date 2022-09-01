@@ -1,22 +1,49 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 import { Application } from './App.styled';
-import SharedLayout from 'components/SharedLayout';
-import HomeViev from 'views/HomeViev';
-import ContactsView from 'views/ContactsView';
-import LoginViev from 'views/LoginViev';
-import RegisterView from 'views/RegisterView';
+import PrivateRoute from 'components/PrivateRoute';
+import PublicRoute from 'components/PublicRoute';
+const SharedLayout = lazy(() => import('components/SharedLayout'));
+const HomeViev = lazy(() => import('views/HomeViev'));
+const ContactsView = lazy(() => import('views/ContactsView'));
+const LoginViev = lazy(() => import('views/LoginViev'));
+const RegisterView = lazy(() => import('views/RegisterView'));
 
 const App = () => {
   return (
     <Application>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomeViev />} />
-          <Route path="contacts" element={<ContactsView />} />
-          <Route path="login" element={<LoginViev />} />
-          <Route path="register" element={<RegisterView />} />
-        </Route>
-      </Routes>
+      <Suspense>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<HomeViev />} />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute redirectTo="/login">
+                  <ContactsView />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <PublicRoute redirectTo="/contacts" restricted>
+                  <LoginViev />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="register"
+              element={
+                <PublicRoute redirectTo="/contacts" restricted>
+                  <RegisterView />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<Navigate replace to="/" />} />
+          </Route>
+        </Routes>
+      </Suspense>
     </Application>
   );
 };

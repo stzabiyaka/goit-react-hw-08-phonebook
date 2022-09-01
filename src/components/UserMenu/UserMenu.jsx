@@ -1,14 +1,33 @@
-import { useSelector } from 'react-redux';
-import { getUserEmail } from 'redux/user';
+import { useDispatch } from 'react-redux';
+import {
+  unsetUserToken,
+  useSignOutUserMutation,
+  useGetCurrentUserQuery,
+} from 'redux/userState';
 import { Button } from 'utilities';
+import { Circles } from 'react-loader-spinner';
 import { Menu, Email } from '.';
 
 const UserMenu = () => {
-  const userEmail = useSelector(getUserEmail);
+  const { data, isSuccess } = useGetCurrentUserQuery();
+  const dispatch = useDispatch();
+  const [signOutUser, { isLoading: isSigningOut }] = useSignOutUserMutation();
+  const handleClick = () => {
+    signOutUser().then(() => {
+      dispatch(unsetUserToken());
+    });
+  };
+
   return (
     <Menu>
-      {userEmail && <Email>{userEmail}</Email>}
-      <Button type="button">LogOut</Button>
+      {isSuccess && <Email>{data.email}</Email>}
+      <Button type="button" onClick={handleClick}>
+        {isSigningOut ? (
+          <Circles color="blue" width="16" height="16" />
+        ) : (
+          'LogOut'
+        )}
+      </Button>
     </Menu>
   );
 };

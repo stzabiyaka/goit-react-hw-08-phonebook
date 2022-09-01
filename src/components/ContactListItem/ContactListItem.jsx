@@ -7,7 +7,7 @@ import { Button } from 'utilities';
 export function ContactListItem({ id }) {
   const { data, isError } = useGetContactsQuery();
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
-  const { name, phone } = data.find(item => item.id === id);
+  const { name, number } = data.find(item => item.id === id);
   const handleClick = () => {
     deleteContact(id);
   };
@@ -15,7 +15,7 @@ export function ContactListItem({ id }) {
     <ListItem>
       {data && !isError && (
         <>
-          {name}: {phone}{' '}
+          {name}: {number}{' '}
           <Button type="button" onClick={handleClick} disabled={isDeleting}>
             {isDeleting ? (
               <Circles color="#8d8d8d" width="16" height="16" />
