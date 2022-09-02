@@ -13,7 +13,10 @@ const RegisterView = lazy(() => import('views/RegisterView'));
 
 const App = () => {
   const isLogged = useSelector(getUserToken);
-  useGetCurrentUserQuery(undefined, { skip: !isLogged });
+  useGetCurrentUserQuery(undefined, {
+    skip: !isLogged,
+    refetchOnMountOrArgChange: true,
+  });
   return (
     <Application>
       <Suspense>

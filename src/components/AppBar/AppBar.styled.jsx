@@ -1,12 +1,14 @@
 import styled from '@emotion/styled';
+const gap = ({ theme }) => theme.indent;
 
 export const AppBarContainer = styled.header`
   display: flex;
   align-items: center;
   width: 100%;
+  margin-bottom: ${gap};
 
-  padding-top: ${({ theme }) => theme.indent};
-  padding-bottom: ${({ theme }) => theme.indent};
+  padding-top: ${gap};
+  padding-bottom: ${gap};
   background-color: ${({ theme }) => theme.colors.barColor};
 `;
 
