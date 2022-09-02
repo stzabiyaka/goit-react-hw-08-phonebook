@@ -1,16 +1,15 @@
 import { AppLink, Main } from 'utilities';
 import { useSelector } from 'react-redux';
-import { getUserToken } from 'redux/userState';
-import { useGetCurrentUserQuery } from 'redux/userState';
+import { getUserToken, getUserName } from 'redux/userState';
 
 const Homeview = () => {
   const isLogged = useSelector(getUserToken);
-  const { data } = useGetCurrentUserQuery(undefined, { skip: !isLogged });
+  const name = useSelector(getUserName);
   return (
     <Main>
       <p>
-        Welcome{isLogged && data && `, ${data?.name},`} to Phonebook - your
-        application to store contacts.
+        Welcome{isLogged && `, ${name},`} to Phonebook - your application to
+        store contacts.
       </p>
       {!isLogged && (
         <>

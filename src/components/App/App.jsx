@@ -1,8 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { getUserToken, useGetCurrentUserQuery } from 'redux/userState';
 import { lazy, Suspense } from 'react';
 import { Application } from './App.styled';
 import PrivateRoutes from 'components/PrivateRoutes';
 import PublicRoutes from 'components/PublicRoutes';
+import { useSelector } from 'react-redux';
 const SharedLayout = lazy(() => import('components/SharedLayout'));
 const HomeViev = lazy(() => import('views/HomeViev'));
 const ContactsView = lazy(() => import('views/ContactsView'));
@@ -10,6 +12,8 @@ const LoginViev = lazy(() => import('views/LoginViev'));
 const RegisterView = lazy(() => import('views/RegisterView'));
 
 const App = () => {
+  const isLogged = useSelector(getUserToken);
+  useGetCurrentUserQuery(undefined, { skip: !isLogged });
   return (
     <Application>
       <Suspense>

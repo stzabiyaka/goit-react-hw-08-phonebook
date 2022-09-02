@@ -1,7 +1,7 @@
 import {
   useSignOutUserMutation,
-  useGetCurrentUserQuery,
   getUserToken,
+  getUserEmail,
 } from 'redux/userState';
 import { useSelector } from 'react-redux';
 import { Button } from 'utilities';
@@ -10,9 +10,8 @@ import { Menu, Email } from '.';
 
 const UserMenu = () => {
   const isLogged = useSelector(getUserToken);
-  const { data, isSuccess } = useGetCurrentUserQuery(undefined, {
-    skip: !isLogged,
-  });
+  const email = useSelector(getUserEmail);
+
   const [
     signOutUser,
     {
@@ -27,7 +26,7 @@ const UserMenu = () => {
 
   return (
     <Menu>
-      {isSuccess && <Email>{data.email}</Email>}
+      {isLogged && <Email>{email}</Email>}
       <Button type="button" onClick={handleClick}>
         {isSigningOut ? (
           <Circles color="blue" width="16" height="16" />

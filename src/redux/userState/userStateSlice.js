@@ -3,7 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { authApi } from './authSlice';
 
-const initialState = { userToken: null };
+const initialState = { userToken: null, userName: '', userEmail: '' };
 
 const userStateSlice = createSlice({
   name: 'userState',
@@ -26,10 +26,19 @@ const userStateSlice = createSlice({
       state.userToken = initialState.userToken;
     });
     builder.addMatcher(
+      authApi.endpoints.getCurrentUser.matchFulfilled,
+      (state, { payload }) => {
+        state.userName = payload.name;
+        state.userEmail = payload.email;
+      }
+    );
+    builder.addMatcher(
       authApi.endpoints.getCurrentUser.matchRejected,
       (state, { payload }) => {
         if (payload?.status === 401) {
           state.userToken = initialState.userToken;
+          state.userName = initialState.userName;
+          state.userEmail = initialState.userEmail;
         }
       }
     );
@@ -48,5 +57,7 @@ export const persistedUserReducer = persistReducer(
 );
 
 export const getUserToken = state => state.userState.userToken;
+export const getUserName = state => state.userState.userName;
+export const getUserEmail = state => state.userState.userEmail;
 
 export const { setUserToken, unsetUserToken } = userStateSlice.actions;
