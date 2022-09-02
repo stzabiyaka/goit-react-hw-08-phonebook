@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { useCreateContactMutation, useGetContactsQuery } from 'redux/contacts';
+import { useCreateContactMutation } from 'redux/contacts';
 import { Circles } from 'react-loader-spinner';
 import { nanoid } from 'nanoid';
 import { Input } from 'components/Input';
 import { FormContainer } from './AddContactForm.styled';
 import { Button } from 'utilities';
+import { useContacts } from 'hooks';
 
 export const AddContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [createContact, { isLoading: isAdding }] = useCreateContactMutation();
-  const { data } = useGetContactsQuery();
+  const data = useContacts();
 
   const handleChange = event => {
     const { name, value } = event.target;

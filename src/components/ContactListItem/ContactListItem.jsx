@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { Circles } from 'react-loader-spinner';
-import { useDeleteContactMutation, useGetContactsQuery } from 'redux/contacts';
+import { useDeleteContactMutation } from 'redux/contacts';
 import { ListItem } from './ContactListItem.styled';
 import { Button } from 'utilities';
+import { useContacts } from 'hooks';
 
 export function ContactListItem({ id }) {
-  const { data, isError } = useGetContactsQuery();
+  const data = useContacts();
   const [deleteContact, { isLoading: isDeleting }] = useDeleteContactMutation();
   const { name, number } = data.find(item => item.id === id);
   const handleClick = () => {
@@ -13,7 +14,7 @@ export function ContactListItem({ id }) {
   };
   return (
     <ListItem>
-      {data && !isError && (
+      {data && (
         <>
           {name}: {number}{' '}
           <Button type="button" onClick={handleClick} disabled={isDeleting}>
@@ -25,7 +26,6 @@ export function ContactListItem({ id }) {
           </Button>
         </>
       )}
-      {isError && <p>Sorry, contact not found</p>}
     </ListItem>
   );
 }

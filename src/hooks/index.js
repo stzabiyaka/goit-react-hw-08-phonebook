@@ -1,1 +1,2 @@
-export { default } from './useFilteredContacts';
+export * from './useFilteredContacts';
+export * from './useContacts';

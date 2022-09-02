@@ -1,9 +1,11 @@
-import { getFilterValue, useGetContactsQuery } from 'redux/contacts';
+import { getFilterValue } from 'redux/contacts';
+import { useContacts } from './useContacts';
 import { useSelector } from 'react-redux';
 
 const useFilteredContacts = () => {
-  const { data = [] } = useGetContactsQuery();
+  const data = useContacts();
   const filterValue = useSelector(getFilterValue).toLowerCase();
+
   return filterValue
     ? data.filter(item =>
         item.name

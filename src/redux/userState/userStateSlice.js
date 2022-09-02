@@ -1,19 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { authApi } from './authSlice';
+
+const initialState = { userToken: null };
 
 const userStateSlice = createSlice({
   name: 'userState',
-  initialState: {
-    userToken: null,
-  },
-  reducers: {
-    setUserToken(state, action) {
-      state.userToken = action.payload;
-    },
-    unsetUserToken(state) {
-      state.userToken = null;
-    },
+  initialState: initialState,
+
+  extraReducers: builder => {
+    builder.addMatcher(
+      authApi.endpoints.signInUser.matchFulfilled,
+      (state, { payload }) => {
+        state.userToken = payload.token;
+      }
+    );
+    builder.addMatcher(
+      authApi.endpoints.signUpUser.matchFulfilled,
+      (state, { payload }) => {
+        state.userToken = payload.token;
+      }
+    );
+    builder.addMatcher(authApi.endpoints.signOutUser.matchFulfilled, state => {
+      state.userToken = initialState.userToken;
+    });
+    builder.addMatcher(
+      authApi.endpoints.getCurrentUser.matchRejected,
+      (state, { payload }) => {
+        if (payload?.status === 401) {
+          state.userToken = initialState.userToken;
+        }
+      }
+    );
   },
 });
 

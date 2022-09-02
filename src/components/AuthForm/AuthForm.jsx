@@ -4,22 +4,35 @@ import {
   useSignUpUserMutation,
   useSignInUserMutation,
 } from 'redux/userState/authSlice';
-import { setUserToken } from 'redux/userState';
 import { Circles } from 'react-loader-spinner';
 import { Button } from 'utilities';
 import { useState } from 'react';
 import { Main } from 'utilities';
 import { Input } from 'components/Input';
 import { FormContainer } from 'components/AddContactForm';
-import { useDispatch } from 'react-redux';
 
 const AuthForm = ({ action }) => {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [signUpUser, { isLoading: isSigningUp }] = useSignUpUserMutation();
-  const [signInUser, { isLoading: isSigningIn }] = useSignInUserMutation();
-  const dispatch = useDispatch();
+  const [
+    signInUser,
+    {
+      isLoading: isSigningIn,
+      isError: isSignInError,
+      isSuccess: isSignInSuccess,
+      data: signInData,
+    },
+  ] = useSignInUserMutation();
+  const [
+    signUpUser,
+    {
+      isLoading: isSigningUp,
+      isError: isSignUpError,
+      isSuccess: isSignUpSuccess,
+      data: signUpData,
+    },
+  ] = useSignUpUserMutation();
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -52,19 +65,10 @@ const AuthForm = ({ action }) => {
     event.preventDefault();
     switch (action) {
       case 'signIn':
-        signInUser({ email, password })
-          .then(({ data }) => {
-            dispatch(setUserToken(data.token));
-            return;
-          })
-          .catch(console.log);
+        signInUser({ email, password });
         break;
       case 'signUp':
-        signUpUser({ name: userName, email, password })
-          .then(({ data }) => {
-            dispatch(setUserToken(data.token));
-          })
-          .catch(console.log);
+        signUpUser({ name: userName, email, password });
         break;
       default:
         console.log('No such an action');
@@ -74,7 +78,7 @@ const AuthForm = ({ action }) => {
 
   return (
     <Main>
-      <FormContainer autoComplete="off" onSubmit={handleSubmit}>
+      <FormContainer autoComplete="on" onSubmit={handleSubmit}>
         {action === 'signUp' && (
           <Input
             name="userName"
@@ -120,6 +124,10 @@ const AuthForm = ({ action }) => {
           )}
         </Button>
       </FormContainer>
+      {isSignInError && <p>Sorry, no such a user found.</p>}
+      {isSignUpError && <p>Sorry, user registration error.</p>}
+      {isSignInSuccess && <p>Welcome, {signInData.user.name}.</p>}
+      {isSignUpSuccess && <p>Welcome, {signUpData.user.name}.</p>}
     </Main>
   );
 };

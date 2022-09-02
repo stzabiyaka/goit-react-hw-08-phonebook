@@ -47,7 +47,6 @@ export const authApi = createApi({
     }),
     getCurrentUser: builder.query({
       query: () => 'current',
-      invalidatesTags: ['User'],
     }),
   }),
 });
