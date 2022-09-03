@@ -116,7 +116,7 @@ const AuthForm = ({ action }) => {
           >
             {action}
           </Typography>
-          <FormContainer autoComplete="on" onSubmit={handleSubmit}>
+          <FormContainer autoComplete="off" onSubmit={handleSubmit}>
             {action === 'signUp' && (
               <Input
                 error={userNameError}
