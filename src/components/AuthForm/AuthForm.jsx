@@ -151,6 +151,8 @@ const AuthForm = ({ action }) => {
               required={true}
               placeholder="Enter password"
               onChange={handleChange}
+              minlength="7"
+              maxLength="12"
             />
             <Button type="submit" variant="contained">
               {isSigningIn || isSigningUp ? (
