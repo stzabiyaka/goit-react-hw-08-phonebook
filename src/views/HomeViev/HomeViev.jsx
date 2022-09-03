@@ -21,7 +21,7 @@ const Homeview = () => {
             gutterBottom
           >
             Welcome{isLogged && `, ${name},`} to Phonebook - your application to
-            store contacts.
+            manage contacts.
           </Typography>
           {!isLogged && (
             <>
