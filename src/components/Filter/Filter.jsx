@@ -19,7 +19,6 @@ export function Filter() {
         title="Enter a name or a family name of the contact to filter data. Filter is case insensitive."
         onChange={handleChange}
         required={false}
-        pattern=""
       />
     </FilterContainer>
   );
