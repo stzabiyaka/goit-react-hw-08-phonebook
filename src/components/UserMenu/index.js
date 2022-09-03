@@ -1,2 +1,1 @@
 export { default } from './UserMenu';
-export * from './UserMenu.styled';

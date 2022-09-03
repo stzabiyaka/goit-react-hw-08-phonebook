@@ -1,10 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { getUserToken, useGetCurrentUserQuery } from 'redux/userState';
 import { lazy, Suspense } from 'react';
-import { Application } from './App.styled';
 import PrivateRoutes from 'components/PrivateRoutes';
 import PublicRoutes from 'components/PublicRoutes';
 import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import { Paper } from '@mui/material';
+import 'react-toastify/dist/ReactToastify.css';
+
 const SharedLayout = lazy(() => import('components/SharedLayout'));
 const HomeViev = lazy(() => import('views/HomeViev'));
 const ContactsView = lazy(() => import('views/ContactsView'));
@@ -18,7 +21,27 @@ const App = () => {
     refetchOnMountOrArgChange: true,
   });
   return (
-    <Application>
+    <Paper
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        minHeight: '100vh',
+        bgcolor: '#f4dfe3',
+      }}
+    >
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <Suspense>
         <Routes>
           <Route path="/" element={<SharedLayout />}>
@@ -37,7 +60,7 @@ const App = () => {
           </Route>
         </Routes>
       </Suspense>
-    </Application>
+    </Paper>
   );
 };
 

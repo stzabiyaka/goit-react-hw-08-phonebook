@@ -1,6 +1,6 @@
 import useFilteredContacts from 'hooks/useFilteredContacts';
 import { ContactListItem } from 'components/ContactListItem';
-import { List } from './ContactList.styled';
+import { Stack } from '@mui/material';
 
 export function ContactList() {
   const filteredContacts = useFilteredContacts();
@@ -8,11 +8,18 @@ export function ContactList() {
   return (
     <>
       {filteredContacts && (
-        <List>
-          {filteredContacts.map(({ id }) => {
-            return <ContactListItem key={id} id={id}></ContactListItem>;
+        <Stack spacing={2}>
+          {filteredContacts.map(({ id, name, number }) => {
+            return (
+              <ContactListItem
+                key={id}
+                id={id}
+                name={name}
+                number={number}
+              ></ContactListItem>
+            );
           })}
-        </List>
+        </Stack>
       )}
     </>
   );
