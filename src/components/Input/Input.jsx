@@ -11,6 +11,8 @@ export function Input({
   placeholder,
   onChange,
   error,
+  minLength,
+  maxLength,
 }) {
   const id = nanoid();
   return (
@@ -25,6 +27,8 @@ export function Input({
       title={title}
       required={required}
       placeholder={placeholder}
+      minLength={minLength}
+      maxLength={maxLength}
       color="primary"
       sx={{
         mb: 2,
@@ -42,4 +46,6 @@ Input.propTypes = {
   required: PropTypes.bool.isRequired,
   placeholder: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  minLength: PropTypes.number,
+  maxLength: PropTypes.number,
 };
