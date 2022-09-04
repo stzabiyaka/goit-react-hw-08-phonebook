@@ -52,12 +52,6 @@ const AuthForm = ({ action }) => {
     }
   };
 
-  const reset = () => {
-    setUserName('');
-    setEmail('');
-    setPassword('');
-  };
-
   const handleSubmit = event => {
     event.preventDefault();
     if (userName && !namePattern.test(userName)) {
