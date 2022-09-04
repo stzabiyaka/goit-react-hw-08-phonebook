@@ -97,7 +97,6 @@ const AuthForm = ({ action }) => {
       default:
         console.log('No such action');
     }
-    reset();
   };
 
   return (
